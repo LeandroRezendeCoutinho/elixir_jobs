@@ -7,6 +7,11 @@
 # General application configuration
 use Mix.Config
 
+config :elixir_jobs, Oban,
+  repo: ElixirJobs.Repo,
+  plugins: [Oban.Plugins.Pruner],
+  queues: [default: 20, critic: 10, maintenance: 5]
+
 config :elixir_jobs,
   ecto_repos: [ElixirJobs.Repo]
 

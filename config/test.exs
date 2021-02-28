@@ -18,5 +18,7 @@ config :elixir_jobs, ElixirJobsWeb.Endpoint,
   http: [port: 4002],
   server: false
 
+config :elixir_jobs, Oban, queues: false, plugins: false
+
 # Print only warnings and errors during test
 config :logger, level: :warn

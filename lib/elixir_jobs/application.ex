@@ -14,9 +14,10 @@ defmodule ElixirJobs.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: ElixirJobs.PubSub},
       # Start the Endpoint (http/https)
-      ElixirJobsWeb.Endpoint
+      ElixirJobsWeb.Endpoint,
       # Start a worker by calling: ElixirJobs.Worker.start_link(arg)
       # {ElixirJobs.Worker, arg}
+      {Oban, oban_config()}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -30,5 +31,10 @@ defmodule ElixirJobs.Application do
   def config_change(changed, _new, removed) do
     ElixirJobsWeb.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  # Conditionally disable queues or plugins here.
+  defp oban_config do
+    Application.get_env(:elixir_jobs, Oban)
   end
 end
